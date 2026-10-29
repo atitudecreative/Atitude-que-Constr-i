@@ -1,0 +1,57 @@
+/* AQ / Button / Primary e AQ / Button / Accent */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border: 0;
+  border-radius: var(--radius-button);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: filter 150ms ease, transform 150ms ease;
+}
+
+.button:hover {
+  filter: brightness(1.1);
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.button:disabled,
+.button[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.6;
+  filter: none;
+  transform: none;
+}
+
+.primary {
+  background: var(--color-green);
+  color: var(--color-cream);
+}
+
+.accent {
+  background: var(--color-orange);
+  color: var(--color-black);
+}
+
+.accent:hover {
+  filter: brightness(1.06);
+}
+
+/* AQ / Pending / Chip */
+.chip {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 8px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-orange);
+  color: var(--color-black);
+  white-space: nowrap;
+}

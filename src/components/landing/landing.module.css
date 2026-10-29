@@ -1,0 +1,690 @@
+/*
+ * Seções da LP. Medidas do Figma:
+ *   celular  → frame "V1 / Mobile / 375"
+ *   tablet   → frame "V1 / Tablet / 768"   (≥ 768px)
+ *   desktop  → frames "V1 / Desktop / 1280" e "1440" (≥ 1024px)
+ * No desktop as colunas usam as mesmas proporções dos frames 1280 e 1440.
+ */
+
+.section {
+  padding: var(--section-pad-y) var(--gutter);
+}
+
+.inner {
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 0 auto;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.cream {
+  background: var(--color-cream);
+}
+.green {
+  background: var(--color-green);
+}
+.black {
+  background: var(--color-black);
+}
+.orange {
+  background: var(--color-orange);
+}
+.lavender {
+  background: var(--color-lavender);
+}
+
+/* ---------- Status ---------- */
+.status {
+  padding: 10px var(--gutter);
+  background: var(--color-orange);
+  color: var(--color-black);
+  text-align: center;
+  white-space: pre-wrap;
+}
+
+@media (min-width: 1024px) {
+  .status {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+
+/* ---------- Header ---------- */
+.header {
+  padding: 16px var(--gutter);
+  background: var(--color-cream);
+}
+
+.headerBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.headerLogoLink {
+  display: block;
+  flex-shrink: 0;
+  border-radius: 4px;
+}
+
+.headerLogo {
+  width: 78px;
+  height: 43.503px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 24px;
+}
+
+.navList {
+  display: none;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navLink {
+  display: block;
+  color: var(--color-black);
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: 4px;
+}
+
+.navLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.ctaDesktop,
+.ctaTablet {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .headerLogo {
+    width: 92px;
+    height: 51.311px;
+  }
+  .ctaMobile {
+    display: none;
+  }
+  .ctaTablet {
+    display: inline;
+  }
+}
+
+@media (min-width: 1024px) {
+  .header {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  .headerLogo {
+    width: 110px;
+    height: 61.35px;
+  }
+  .navList {
+    display: flex;
+  }
+  .ctaTablet {
+    display: none;
+  }
+  .ctaDesktop {
+    display: inline;
+  }
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  padding-top: 56px;
+  padding-bottom: 56px;
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.heroText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  color: var(--color-cream);
+}
+
+.heroEyebrow {
+  color: var(--color-yellow);
+}
+
+/* Hero / Visual IDV — posições relativas à largura do bloco (cqw) */
+.heroVisual {
+  container-type: inline-size;
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+  border-radius: 28px;
+  background: var(--color-black);
+}
+
+.heroCircle {
+  position: absolute;
+  left: 42cqw;
+  top: -24cqw;
+  width: 78cqw;
+  height: 78cqw;
+  border-radius: 50%;
+  background: var(--color-orange);
+}
+
+.heroSurface {
+  position: absolute;
+  left: 24px;
+  top: 115px;
+  width: 78cqw;
+  height: 120px;
+  border-radius: 24px;
+  background: var(--color-cream);
+}
+
+.heroLogo {
+  position: absolute;
+  left: 44px;
+  top: 134px;
+  width: 150px;
+  height: 83.659px;
+}
+
+.heroTopo {
+  position: absolute;
+  right: 10px;
+  top: 150px;
+  width: 160px;
+  height: 100px;
+}
+
+.heroTopoDesktop {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+  .heroVisual {
+    height: 360px;
+  }
+  .heroSurface {
+    top: 180px;
+    height: 155px;
+  }
+  .heroLogo {
+    top: 202px;
+    width: 210px;
+    height: 117.123px;
+  }
+  .heroTopo {
+    top: 250px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    padding-top: 88px;
+    padding-bottom: 88px;
+  }
+  .heroContent {
+    flex-direction: row;
+    align-items: center;
+    gap: 64px;
+  }
+  .heroText {
+    flex: 665 1 0;
+    min-width: 0;
+    gap: 24px;
+  }
+  .heroVisual {
+    flex: 615 1 0;
+    min-width: 0;
+    height: 460px;
+    border-radius: 32px;
+  }
+  .heroCircle {
+    top: -18cqw;
+    width: 72cqw;
+    height: 72cqw;
+  }
+  .heroSurface {
+    left: 32px;
+    top: 220px;
+    width: 72cqw;
+    height: 190px;
+    border-radius: 28px;
+  }
+  .heroLogo {
+    left: 56px;
+    top: 260px;
+    width: 250px;
+    height: 139.432px;
+  }
+  .heroTopo {
+    display: none;
+  }
+  .heroTopoDesktop {
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: 280px;
+    width: 220px;
+    height: 150px;
+  }
+}
+
+/* ---------- Propósito ---------- */
+.purposeContent {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.purposeHeading,
+.purposeCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.eyebrowOrange {
+  color: var(--color-orange);
+}
+
+.titleGreen {
+  color: var(--color-green);
+}
+
+@media (min-width: 1024px) {
+  .purposeContent {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 64px;
+  }
+  .purposeHeading {
+    flex: 537 1 0;
+    min-width: 0;
+    gap: 20px;
+  }
+  .purposeCopy {
+    flex: 743 1 0;
+    min-width: 0;
+    gap: 24px;
+  }
+}
+
+/* ---------- Progresso ---------- */
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.progressHeader,
+.progressTitle,
+.progressPending {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.progressTitle {
+  color: var(--color-cream);
+}
+
+.eyebrowYellow {
+  color: var(--color-yellow);
+}
+
+.progressNote {
+  color: var(--color-cream);
+}
+
+.wall {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* AQ / Progress / Brick */
+.brick {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 112px;
+  height: 56px;
+  border: 2px solid var(--color-orange);
+  border-radius: var(--radius-brick);
+  background: var(--color-cream);
+  color: var(--color-orange);
+}
+
+/* Parte concluída (estado não desenhado no V1 — decisão provisória documentada) */
+.brickDone {
+  border-color: var(--color-green);
+  background: var(--color-green);
+  color: var(--color-cream);
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px;
+  border-radius: 14px;
+  background: var(--color-green);
+  color: var(--color-cream);
+}
+
+.stat dt {
+  color: var(--color-yellow);
+}
+
+.stat dd {
+  margin: 0;
+}
+
+@media (min-width: 1024px) {
+  .progress {
+    gap: 48px;
+  }
+  .progressHeader {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0;
+  }
+  .progressTitle {
+    flex: 0 1 57.96%;
+    gap: 16px;
+  }
+  .progressPending {
+    flex: 0 1 29.99%;
+    gap: 12px;
+  }
+  .stats {
+    flex-direction: row;
+    gap: 16px;
+  }
+  .stat {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 140px;
+    gap: 8px;
+    padding: 20px;
+    border-radius: 16px;
+  }
+}
+
+/* ---------- Como contribuir ---------- */
+.contribute {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.contributeHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 760px;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* AQ / Card / Contribution */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 24px;
+  border: 2px solid var(--color-green);
+  border-radius: 20px;
+  background: var(--color-cream);
+  color: var(--color-black);
+  text-decoration: none;
+}
+
+a.card {
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+a.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--color-green);
+}
+
+.cardTitle {
+  color: var(--color-green);
+}
+
+.cardText {
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 1024px) {
+  .contribute {
+    gap: 48px;
+  }
+  .contributeHeader {
+    gap: 16px;
+  }
+  .cards {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  .cards > li {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+
+/* ---------- O terreno ---------- */
+.gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 28px;
+}
+
+.galleryTitle {
+  max-width: 840px;
+}
+
+.media {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* AQ / Media / Placeholder */
+.mediaItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 220px;
+  padding: 24px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: var(--color-lavender);
+  color: var(--color-black);
+  text-align: center;
+}
+
+.mediaPhoto {
+  padding: 0;
+}
+
+.mediaPhoto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .mediaItem {
+    height: 280px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery {
+    gap: 40px;
+  }
+  .media {
+    flex-direction: row;
+    gap: 24px;
+  }
+  .media > li {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .mediaItem {
+    height: 260px;
+  }
+}
+
+/* ---------- Contato ---------- */
+.contactContent {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.contactCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 28px;
+}
+
+@media (min-width: 1024px) {
+  .contactContent {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 64px;
+  }
+  /* 550 : 730 (frame 1440) — a base é calculada sem o padding do formulário */
+  .contactCopy {
+    flex: 0 0 calc((100% - 64px) * 550 / 1280);
+    min-width: 0;
+    gap: 20px;
+  }
+  .contactForm {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+
+/* ---------- Rodapé ---------- */
+.footer {
+  padding: 48px var(--gutter);
+  background: var(--color-black);
+}
+
+.footerContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.badge {
+  width: 150px;
+  padding: 14px;
+  border-radius: 14px;
+  background: var(--color-cream);
+}
+
+.badgeLogo {
+  width: 100px;
+  height: 55.773px;
+}
+
+.footerMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.footerStatus {
+  color: var(--color-yellow);
+}
+
+.footerPending {
+  color: var(--color-cream);
+}
+
+@media (min-width: 768px) {
+  .badge {
+    width: 180px;
+  }
+  .badgeLogo {
+    width: 120px;
+    height: 66.927px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+  .footerContent {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .badge {
+    padding: 16px;
+    border-radius: 16px;
+  }
+  .footerMeta {
+    flex: 0 1 51.93%;
+    gap: 12px;
+  }
+}
