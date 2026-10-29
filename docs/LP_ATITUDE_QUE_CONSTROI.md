@@ -198,6 +198,26 @@ Os testes ponta a ponta acharam e já corrigiram dois defeitos: a CSP não era a
    - quando o Inbound aprovar, ajuste os campos e o texto LGPD e marque "formulário aprovado";
    - desligue a faixa "V1 ESTRUTURAL".
 
+### Publicação no Render
+
+O arquivo `render.yaml` (Blueprint) cria o site e o PostgreSQL juntos, já com build, migrations, health check, `TRUST_PROXY=true` e `IP_HASH_SALT` gerado.
+
+1. No Render: **New → Blueprint**, escolha este repositório e a branch a publicar.
+2. Quando pedir `APP_URL`, informe `https://atitude-que-constroi.onrender.com` (ou o domínio próprio, se já houver). Deve ser **exatamente** a URL pela qual o público acessa, sem barra final; se o Render der outro endereço ao serviço, corrija a variável e faça novo deploy. Os campos de SMTP e webhook podem ficar vazios.
+3. Aguarde o primeiro deploy e abra `/api/health`: deve responder `200`.
+4. Crie o primeiro usuário do painel. O plano gratuito não tem Shell, então rode no seu computador usando a **External Database URL** do banco (página do banco no Render → Connect):
+
+   ```bash
+   DATABASE_URL='<External Database URL>?sslmode=require' ADMIN_PASSWORD='uma-senha-longa-e-unica' npm run admin:create -- --email voce@igreja.org --name "Seu Nome" --role admin
+   ```
+
+5. Domínio próprio: Settings → Custom Domains no serviço, ajuste o DNS e depois troque `APP_URL` para o novo domínio.
+
+**Limites do plano gratuito:**
+
+- **O banco gratuito expira em 30 dias e os dados são apagados**, sem backup. Serve para homologação; antes de divulgar, mude o banco para um plano pago (ex.: Basic 256 MB).
+- O site gratuito "dorme" após 15 minutos sem acesso, e a primeira visita seguinte leva cerca de 1 minuto para abrir. Para a campanha no ar, use pelo menos o plano Starter.
+
 ## 7. Pendências
 
 | Item | Responsável | Impacto até resolver |
