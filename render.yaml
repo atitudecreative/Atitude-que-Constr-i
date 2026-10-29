@@ -1,0 +1,48 @@
+# Blueprint do Render: cria o site e o banco PostgreSQL de uma vez.
+# Passo a passo em docs/LP_ATITUDE_QUE_CONSTROI.md, seção "Publicação no Render".
+services:
+  - type: web
+    name: atitude-que-constroi
+    runtime: node
+    region: virginia
+    plan: free
+    # --include=dev: o build (TypeScript) e as migrations (tsx) usam dependências de desenvolvimento.
+    buildCommand: npm ci --include=dev && npm run build
+    # As migrations rodam a cada início. São idempotentes e usam lock, então é seguro.
+    startCommand: npm run db:migrate && npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: atitude-que-constroi-db
+          property: connectionString
+      # URL pública exata, sem barra final (ex.: https://atitude-que-constroi.onrender.com).
+      - key: APP_URL
+        sync: false
+      - key: IP_HASH_SALT
+        generateValue: true
+      # O Render coloca o IP real do visitante no início do X-Forwarded-For.
+      - key: TRUST_PROXY
+        value: "true"
+      - key: SMTP_URL
+        sync: false
+      - key: MAIL_FROM
+        sync: false
+      - key: LEAD_NOTIFY_TO
+        sync: false
+      - key: LEADS_WEBHOOK_URL
+        sync: false
+      - key: LEADS_WEBHOOK_SECRET
+        sync: false
+
+databases:
+  - name: atitude-que-constroi-db
+    region: virginia
+    # Atenção: o PostgreSQL gratuito do Render expira em 30 dias e os dados são apagados.
+    # Antes de divulgar a página, troque para um plano pago (ex.: basic-256mb), que tem backup.
+    plan: free
+    postgresMajorVersion: "16"
+    databaseName: atitude_lp
+    user: atitude

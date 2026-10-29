@@ -66,6 +66,7 @@ Os bancos de teste são **apagados e recriados a cada execução**. Nunca aponte
 ## Estrutura
 
 ```
+render.yaml           Blueprint para publicar no Render
 db/migrations/        SQL versionado (001_init.sql)
 scripts/              migrate.ts, create-admin.ts
 public/brand/         logo e linhas topográficas (SVG exportados do Figma)
