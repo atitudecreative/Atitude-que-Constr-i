@@ -198,25 +198,28 @@ Os testes ponta a ponta acharam e já corrigiram dois defeitos: a CSP não era a
    - quando o Inbound aprovar, ajuste os campos e o texto LGPD e marque "formulário aprovado";
    - desligue a faixa "V1 ESTRUTURAL".
 
-### Publicação no Render
+### Publicação no Render (com banco no Neon)
 
-O arquivo `render.yaml` (Blueprint) cria o site e o PostgreSQL juntos, já com build, migrations, health check, `TRUST_PROXY=true` e `IP_HASH_SALT` gerado.
+O site fica no Render e o PostgreSQL no [Neon](https://neon.tech), porque o Render só permite um banco gratuito por conta. O arquivo `render.yaml` (Blueprint) cria o site já com build, migrations, health check, `TRUST_PROXY=true` e `IP_HASH_SALT` gerado.
 
-1. No Render: **New → Blueprint**, escolha este repositório e a branch a publicar.
-2. Quando pedir `APP_URL`, informe `https://atitude-que-constroi.onrender.com` (ou o domínio próprio, se já houver). Deve ser **exatamente** a URL pela qual o público acessa, sem barra final; se o Render der outro endereço ao serviço, corrija a variável e faça novo deploy. Os campos de SMTP e webhook podem ficar vazios.
-3. Aguarde o primeiro deploy e abra `/api/health`: deve responder `200`.
-4. Crie o primeiro usuário do painel. O plano gratuito não tem Shell, então rode no seu computador usando a **External Database URL** do banco (página do banco no Render → Connect):
+1. **Banco no Neon.** Crie uma conta e um projeto com PostgreSQL 16 na região **AWS US East (N. Virginia)**, a mesma do site no Render. Em **Connect**, desligue **Connection pooling** (as migrations usam *advisory lock*, que não funciona pelo pooler) e copie a connection string. Troque o final `?sslmode=require&channel_binding=require` por `?sslmode=verify-full`.
+2. **Site no Render.** **New → Blueprint**, escolha este repositório e a branch `main`. Quando pedir:
+   - `DATABASE_URL`: a connection string do passo 1;
+   - `APP_URL`: `https://atitude-que-constroi.onrender.com` (ou o domínio próprio). Deve ser **exatamente** a URL pela qual o público acessa, sem barra final; se o Render der outro endereço ao serviço, corrija a variável e faça novo deploy;
+   - SMTP e webhook podem ficar vazios.
+3. Aguarde o deploy (as tabelas são criadas no início) e abra `/api/health`: deve responder `200`.
+4. Crie o primeiro usuário do painel no seu computador, com a mesma connection string:
 
    ```bash
-   DATABASE_URL='<External Database URL>?sslmode=require' ADMIN_PASSWORD='uma-senha-longa-e-unica' npm run admin:create -- --email voce@igreja.org --name "Seu Nome" --role admin
+   DATABASE_URL='<connection string do Neon>' ADMIN_PASSWORD='uma-senha-longa-e-unica' npm run admin:create -- --email voce@igreja.org --name "Seu Nome" --role admin
    ```
 
 5. Domínio próprio: Settings → Custom Domains no serviço, ajuste o DNS e depois troque `APP_URL` para o novo domínio.
 
-**Limites do plano gratuito:**
+**Limites dos planos gratuitos:**
 
-- **O banco gratuito expira em 30 dias e os dados são apagados**, sem backup. Serve para homologação; antes de divulgar, mude o banco para um plano pago (ex.: Basic 256 MB).
-- O site gratuito "dorme" após 15 minutos sem acesso, e a primeira visita seguinte leva cerca de 1 minuto para abrir. Para a campanha no ar, use pelo menos o plano Starter.
+- O site gratuito do Render "dorme" após 15 minutos sem acesso, e a primeira visita seguinte leva cerca de 1 minuto para abrir. Para a campanha no ar, use pelo menos o plano Starter.
+- O Neon gratuito suspende o banco quando ocioso (a primeira consulta depois disso demora um pouco mais), tem limite de armazenamento e restauração de histórico curta. Para esta LP o espaço é suficiente; confira os limites atuais no site do Neon e ative um plano pago se precisar de backup mais longo.
 
 ## 7. Pendências
 
